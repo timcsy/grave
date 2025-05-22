@@ -4,6 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>紀念園區 | 永恆的懷念</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="永恆紀念園提供莊嚴、寧靜的紀念環境，讓您可以追思懷念摯愛親友。我們提供墓園規劃、追思儀式和後續關懷等全方位服務。">
+    <meta name="keywords" content="紀念園區,墓園,追思,家族墓園,紀念碑,追思儀式,墓園規劃,台灣紀念園">
+    <meta name="author" content="永恆紀念園">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags (for social media) -->
+    <meta property="og:title" content="紀念園區 | 永恆的懷念">
+    <meta property="og:description" content="在永恆紀念園，我們珍藏每一份回憶，守護每一個永恆。提供莊嚴、寧靜的環境，讓您可以追思懷念摯愛親友。">
+    <meta property="og:image" content="img/hero-bg.jpg">
+    <meta property="og:url" content="https://www.eternalmemorial.tw">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="紀念園區 | 永恆的懷念">
+    <meta name="twitter:description" content="在永恆紀念園，我們珍藏每一份回憶，守護每一個永恆。">
+    <meta name="twitter:image" content="img/hero-bg.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="css/style.css">
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -11,6 +36,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.eternalmemorial.tw">
 </head>
 <body>
     <header>
@@ -155,9 +183,8 @@
                         <i class="fas fa-clock"></i>
                         <p>週一至週日: 上午8:00 - 下午5:00</p>
                     </div>
-                </div>
-                <div class="contact-form">
-                    <form id="contactForm">
+                </div>                <div class="contact-form">
+                    <form id="contactForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
                         <div class="form-group">
                             <input type="text" id="name" name="name" placeholder="您的姓名" required>
                         </div>
@@ -170,6 +197,18 @@
                         <div class="form-group">
                             <textarea id="message" name="message" placeholder="您的留言" required></textarea>
                         </div>
+                        <div class="form-group">
+                            <select name="subject" id="subject" required>
+                                <option value="" disabled selected>請選擇諮詢項目</option>
+                                <option value="墓園規劃">墓園規劃</option>
+                                <option value="追思儀式">追思儀式</option>
+                                <option value="墓園維護">墓園維護</option>
+                                <option value="其他事項">其他事項</option>
+                            </select>
+                        </div>
+                        <input type="hidden" name="_subject" value="永恆紀念園網站諮詢">
+                        <!-- 防止垃圾郵件 -->
+                        <input type="text" name="_gotcha" style="display: none">
                         <button type="submit" class="btn">送出</button>
                     </form>
                 </div>
