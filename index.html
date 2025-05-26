@@ -36,9 +36,52 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Canonical URL -->
+      <!-- Canonical URL -->
     <link rel="canonical" href="https://www.eternalmemorial.tw">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "永恆紀念園",
+        "description": "永恆紀念園提供莊嚴、寧靜的紀念環境，讓您可以追思懷念摯愛親友。我們提供墓園規劃、追思儀式和後續關懷等全方位服務。",
+        "url": "https://www.eternalmemorial.tw",
+        "logo": "https://www.eternalmemorial.tw/img/hero-bg.jpg",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+886-2-2636-1234",
+            "contactType": "Customer Service",
+            "availableLanguage": ["Chinese", "zh-TW"]
+        },
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "永恆路123號",
+            "addressLocality": "三芝區",
+            "addressRegion": "新北市",
+            "addressCountry": "TW"
+        },
+        "openingHours": "Mo-Su 08:00-17:00",
+        "areaServed": "台灣",
+        "service": [
+            {
+                "@type": "Service",
+                "name": "追思儀式",
+                "description": "提供完整的追思儀式規劃"
+            },
+            {
+                "@type": "Service", 
+                "name": "墓園規劃",
+                "description": "提供各式墓園設計"
+            },
+            {
+                "@type": "Service",
+                "name": "墓園維護",
+                "description": "定期維護墓園環境"
+            }
+        ]
+    }
+    </script>
 </head>
 <body>
     <header>
@@ -113,49 +156,134 @@
                 </div>
             </div>
         </div>
-    </section>
-
-    <section id="memorials" class="memorials">
+    </section>    <section id="memorials" class="memorials">
         <div class="container">
             <h2 class="section-title">紀念區</h2>
-            <div class="memorial-filter">
-                <button class="filter-btn active" data-filter="all">全部</button>
-                <button class="filter-btn" data-filter="family">家族墓園</button>
-                <button class="filter-btn" data-filter="individual">個人墓園</button>
-                <button class="filter-btn" data-filter="memorial">紀念碑</button>
+            
+            <!-- 搜尋和篩選區域 -->
+            <div class="memorial-controls">
+                <div class="search-box">
+                    <div class="search-input-wrapper">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="memorial-search" placeholder="搜尋紀念區名稱或描述...">
+                        <button type="button" id="clear-search" class="clear-btn" style="display: none;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="memorial-filter">
+                    <button class="filter-btn active" data-filter="all">全部</button>
+                    <button class="filter-btn" data-filter="family">家族墓園</button>
+                    <button class="filter-btn" data-filter="individual">個人墓園</button>
+                    <button class="filter-btn" data-filter="memorial">紀念碑</button>
+                </div>
             </div>
+            
+            <!-- 結果統計 -->
+            <div class="memorial-stats">
+                <p id="results-count">顯示 <span class="count">6</span> 個紀念區</p>
+            </div>
+            
             <div class="memorial-grid">
                 <!-- 紀念區項目將通過JavaScript動態生成 -->
             </div>
+            
+            <!-- 無結果提示 -->
+            <div class="no-results" style="display: none;">
+                <div class="no-results-content">
+                    <i class="fas fa-search"></i>
+                    <h3>未找到相符的紀念區</h3>
+                    <p>請試試其他搜尋關鍵字或選擇不同的分類</p>
+                    <button class="btn" onclick="clearSearch()">清除搜尋</button>
+                </div>
+            </div>
         </div>
-    </section>
-
-    <section id="testimonials" class="testimonials">
+    </section><section id="testimonials" class="testimonials fade-in">
         <div class="container">
             <h2 class="section-title">家屬感言</h2>
             <div class="testimonial-slider">
                 <div class="testimonial">
-                    <div class="testimonial-text">
-                        <p>"感謝永恆紀念園提供如此美麗且莊嚴的環境，讓我能夠在此追思我的父親。每次造訪，都能感受到平靜與安慰。"</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <p>— 林小姐</p>
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <div class="testimonial-text">
+                            <p>感謝永恆紀念園提供如此美麗且莊嚴的環境，讓我能夠在此追思我的父親。每次造訪，都能感受到內心的平靜與安慰。工作人員的細心照料，讓這裡成為我們家族永遠的歸宿。</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <div class="author-avatar">
+                                    <i class="fas fa-user-circle"></i>
+                                </div>
+                                <div class="author-details">
+                                    <p class="author-name">林小姐</p>
+                                    <p class="author-relation">追思父親</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="testimonial">
-                    <div class="testimonial-text">
-                        <p>"工作人員的親切與專業，讓我在最困難的時刻感受到支持。園區的環境維護得非常好，是一個讓人心靈獲得平靜的地方。"</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <p>— 張先生</p>
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <div class="testimonial-text">
+                            <p>工作人員的親切與專業，讓我在最困難的時刻感受到溫暖的支持。園區的環境維護得非常好，四季的景色變化讓每次祭拜都有不同的感受，是一個讓人心靈獲得平靜的聖地。</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <div class="author-avatar">
+                                    <i class="fas fa-user-circle"></i>
+                                </div>
+                                <div class="author-details">
+                                    <p class="author-name">張先生</p>
+                                    <p class="author-relation">懷念母親</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="testimonial">
-                    <div class="testimonial-text">
-                        <p>"選擇永恆紀念園是我們家做過最正確的決定。這裡不僅環境優美，服務也非常周到，讓我們能夠安心地紀念我們的摯愛。"</p>
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <div class="testimonial-text">
+                            <p>選擇永恆紀念園是我們家做過最正確的決定。這裡不僅環境優美，服務也非常周到，讓我們能夠安心地紀念我們的摯愛。每年的清明節，全家人聚在這裡，感受著愛的延續。</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <div class="author-avatar">
+                                    <i class="fas fa-user-circle"></i>
+                                </div>
+                                <div class="author-details">
+                                    <p class="author-name">王家人</p>
+                                    <p class="author-relation">家族紀念</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="testimonial-author">
-                        <p>— 王家人</p>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <div class="testimonial-text">
+                            <p>從規劃到完工，永恆紀念園的團隊都展現了極高的專業素養。他們不僅理解我們的需求，更體貼我們的情感。現在的紀念碑成為我們思念祖父的心靈寄託，設計既莊嚴又溫馨。</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <div class="author-avatar">
+                                    <i class="fas fa-user-circle"></i>
+                                </div>
+                                <div class="author-details">
+                                    <p class="author-name">陳女士</p>
+                                    <p class="author-relation">紀念祖父</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -209,6 +337,8 @@
                         <input type="hidden" name="_subject" value="永恆紀念園網站諮詢">
                         <!-- 防止垃圾郵件 -->
                         <input type="text" name="_gotcha" style="display: none">
+                        <!-- 表單狀態提示區域 -->
+                        <div id="form-status" class="form-status" style="display: none;"></div>
                         <button type="submit" class="btn">送出</button>
                     </form>
                 </div>

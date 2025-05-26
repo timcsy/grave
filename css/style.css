@@ -33,10 +33,12 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    overflow-x: hidden; /* 防止水平滾动 */
 }
 
 section {
     padding: 80px 0;
+    overflow-x: hidden; /* 防止水平滾动 */
 }
 
 .section-title {
@@ -61,6 +63,7 @@ section {
 img {
     max-width: 100%;
     height: auto;
+    display: block; /* 防止圖片底部空白 */
 }
 
 a {
@@ -197,6 +200,8 @@ nav {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 30px;
+    width: 100%;
+    max-width: 100%;
 }
 
 .service-card {
@@ -206,6 +211,11 @@ nav {
     text-align: center;
     box-shadow: var(--shadow);
     transition: transform 0.3s ease;
+    width: 100%;
+    min-height: 200px; /* 確保卡片高度一致 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .service-card:hover {
@@ -257,6 +267,8 @@ nav {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 30px;
+    width: 100%;
+    max-width: 100%;
 }
 
 .memorial-item {
@@ -295,37 +307,218 @@ nav {
     transform: scale(1.1);
 }
 
+/* 搜尋和篩選控制區域 */
+.memorial-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 30px;
+    align-items: center;
+}
+
+.search-box {
+    width: 100%;
+    max-width: 500px;
+}
+
+.search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-input-wrapper i {
+    position: absolute;
+    left: 15px;
+    color: var(--accent-color);
+    font-size: 1rem;
+    z-index: 1;
+}
+
+#memorial-search {
+    width: 100%;
+    padding: 12px 50px 12px 45px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-family: 'Noto Serif TC', serif;
+    transition: all 0.3s ease;
+    background-color: white;
+}
+
+#memorial-search:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(44, 62, 80, 0.1);
+}
+
+.clear-btn {
+    position: absolute;
+    right: 15px;
+    background: none;
+    border: none;
+    color: var(--accent-color);
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 5px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.clear-btn:hover {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+/* 結果統計 */
+.memorial-stats {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.memorial-stats p {
+    color: var(--accent-color);
+    font-size: 1rem;
+}
+
+.memorial-stats .count {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* 無結果提示 */
+.no-results {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--accent-color);
+}
+
+.no-results-content i {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.no-results-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.no-results-content p {
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+}
+
 /* 家屬感言樣式 */
 .testimonials {
     background-color: var(--light-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonials::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, transparent 0%, rgba(44, 62, 80, 0.03) 100%);
+    pointer-events: none;
 }
 
 .testimonial-slider {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
+    position: relative;
 }
 
 .testimonial {
     background-color: white;
-    border-radius: 10px;
-    padding: 40px;
-    box-shadow: var(--shadow);
+    border-radius: 15px;
+    padding: 0;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
     margin: 20px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    opacity: 0.9;
+    transform: scale(0.98);
+    transition: all 0.4s ease;
+}
+
+.testimonial:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.testimonial-content {
+    padding: 40px;
+    position: relative;
+}
+
+.quote-icon {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 2rem;
+    color: var(--accent-color);
+    opacity: 0.3;
 }
 
 .testimonial-text {
     font-size: 1.1rem;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     line-height: 1.8;
+    color: var(--text-color);
+    position: relative;
+    padding-top: 10px;
 }
 
 .testimonial-text p {
+    margin: 0;
     font-style: italic;
+    position: relative;
+    z-index: 1;
 }
 
 .testimonial-author {
-    text-align: right;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.author-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.author-avatar {
+    flex-shrink: 0;
+}
+
+.author-avatar i {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    opacity: 0.7;
+}
+
+.author-details {
+    flex: 1;
+}
+
+.author-name {
     font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    margin: 0 0 5px 0;
+}
+
+.author-relation {
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    margin: 0;
+    font-style: italic;
 }
 
 /* 聯絡我們區域樣式 */
@@ -336,10 +529,12 @@ nav {
 .contact-content {
     display: flex;
     gap: 50px;
+    align-items: flex-start; /* 確保上方對齊 */
 }
 
 .contact-info, .contact-form {
     flex: 1;
+    min-width: 0; /* 防止flex項目溢出 */
 }
 
 .info-item {
@@ -384,6 +579,33 @@ nav {
     padding-right: 30px;
 }
 
+/* 表單狀態提示樣式 */
+.form-status {
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.form-status.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.form-status.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.form-status.loading {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
 /* 頁尾樣式 */
 footer {
     background-color: var(--dark-color);
@@ -397,6 +619,12 @@ footer {
     justify-content: space-between;
     gap: 30px;
     margin-bottom: 40px;
+    align-items: flex-start; /* 確保上方對齊 */
+}
+
+.footer-logo, .footer-links, .footer-social {
+    min-width: 200px; /* 確保最小寬度 */
+    flex: 1;
 }
 
 .footer-logo h2 {
@@ -439,12 +667,29 @@ footer {
 
 /* 響應式設計 */
 @media (max-width: 1024px) {
+    .container {
+        width: 95%;
+        padding: 0 15px;
+    }
+    
+    .memorial-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+    }
+    
+    .service-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+    }
+    
     .about-content {
         flex-direction: column;
+        gap: 30px;
     }
     
     .contact-content {
         flex-direction: column;
+        gap: 30px;
     }
 }
 
@@ -482,6 +727,96 @@ footer {
     .hero-content p {
         font-size: 1.2rem;
     }
+    
+    /* 關於我們區域響應式 */
+    .about-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+    
+    .about-image {
+        order: 2;
+    }
+    
+    .about-text {
+        order: 1;
+    }
+    
+    /* 聯絡我們區域響應式 */
+    .contact-content {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .info-item {
+        margin-bottom: 20px;
+    }
+    
+    .info-item i {
+        font-size: 1.5rem;
+        margin-right: 15px;
+        width: 30px;
+    }
+    
+    /* 服務項目響應式 */
+    .service-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+    
+    .service-card {
+        padding: 20px;
+    }
+    
+    .service-card i {
+        font-size: 2.5rem;
+    }
+    
+    /* 紀念區響應式 */
+    .memorial-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    
+    .memorial-item {
+        height: 300px;
+    }
+    
+    /* 搜尋控制區域響應式 */
+    .memorial-controls {
+        gap: 15px;
+    }
+    
+    .search-box {
+        max-width: 100%;
+    }
+    
+    #memorial-search {
+        padding: 10px 40px 10px 35px;
+        font-size: 0.95rem;
+    }
+    
+    .search-input-wrapper i {
+        left: 12px;
+        font-size: 0.9rem;
+    }
+    
+    .clear-btn {
+        right: 12px;
+        font-size: 0.9rem;
+    }
+    
+    /* 濾鏡按鈕響應式 */
+    .memorial-filter {
+        gap: 10px;
+    }
+    
+    .filter-btn {
+        padding: 6px 16px;
+        font-size: 0.9rem;
+        margin: 5px;
+    }
 }
 
 @media (max-width: 576px) {
@@ -489,12 +824,93 @@ footer {
         padding: 60px 0;
     }
     
+    .container {
+        padding: 0 10px;
+    }
+    
     .section-title {
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+    
+    .hero-content h2 {
         font-size: 2rem;
     }
     
-    .footer-content {
-        flex-direction: column;
+    .hero-content p {
+        font-size: 1.1rem;
+    }
+    
+    /* 導航調整 */
+    nav {
+        padding: 15px 0;
+    }
+    
+    .logo h1 {
+        font-size: 1.5rem;
+    }
+    
+    /* 服務項目小螢幕優化 */
+    .service-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    /* 紀念區小螢幕優化 */
+    .memorial-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .memorial-item {
+        height: 250px;
+    }
+    
+    /* 搜尋控制區域小螢幕優化 */
+    .memorial-controls {
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+    
+    #memorial-search {
+        padding: 10px 35px 10px 35px;
+        font-size: 0.9rem;
+        border-radius: 20px;
+    }
+    
+    .search-input-wrapper i {
+        left: 12px;
+        font-size: 0.85rem;
+    }
+    
+    .clear-btn {
+        right: 10px;
+        font-size: 0.85rem;
+    }
+    
+    /* 結果統計小螢幕優化 */
+    .memorial-stats p {
+        font-size: 0.9rem;
+    }
+    
+    /* 無結果提示小螢幕優化 */
+    .no-results {
+        padding: 40px 15px;
+    }
+    
+    .no-results-content i {
+        font-size: 3rem;
+        margin-bottom: 15px;
+    }
+    
+    .no-results-content h3 {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+    }
+    
+    .no-results-content p {
+        margin-bottom: 20px;
+        font-size: 1rem;
     }
 }
 
@@ -511,26 +927,139 @@ footer {
 }
 
 /* 自定義 slick slider 樣式 */
-.slick-dots li button:before {
-    font-size: 12px;
-    color: var(--primary-color);
-    opacity: 0.5;
+.testimonials .slick-dots {
+    bottom: -60px;
+    display: flex !important;
+    justify-content: center;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.slick-dots li.slick-active button:before {
+.testimonials .slick-dots li {
+    width: auto;
+    height: auto;
+    margin: 0;
+}
+
+.testimonials .slick-dots li button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-color);
+    background-color: transparent;
+    font-size: 0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.testimonials .slick-dots li button:hover {
+    background-color: var(--primary-color);
+    transform: scale(1.2);
+}
+
+.testimonials .slick-dots li.slick-active button {
+    background-color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.testimonials .slick-prev,
+.testimonials .slick-next {
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.testimonials .slick-prev:hover,
+.testimonials .slick-next:hover {
+    background-color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.testimonials .slick-prev:hover:before,
+.testimonials .slick-next:hover:before {
+    color: white;
+}
+
+.testimonials .slick-prev {
+    left: -70px;
+}
+
+.testimonials .slick-next {
+    right: -70px;
+}
+
+.testimonials .slick-prev:before,
+.testimonials .slick-next:before {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 18px;
+    color: var(--primary-color);
     opacity: 1;
 }
 
-.slick-prev, .slick-next {
-    width: 40px;
-    height: 40px;
-    z-index: 1;
+.testimonials .slick-prev:before {
+    content: '\f104'; /* fa-angle-left */
 }
 
-.slick-prev {
-    left: -50px;
+.testimonials .slick-next:before {
+    content: '\f105'; /* fa-angle-right */
 }
 
-.slick-next {
-    right: -50px;
+/* 家屬感言動畫效果 */
+.testimonial.animate-in {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.slick-current .testimonial {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* 輪播容器動畫 */
+.testimonial-slider .slick-track {
+    display: flex;
+    align-items: center;
+}
+
+.testimonial-slider .slick-slide {
+    height: inherit;
+    padding: 0 10px;
+}
+
+/* 載入動畫 */
+@keyframes testimonialFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.testimonials.fade-in.active .testimonial-slider {
+    animation: testimonialFadeIn 0.8s ease-out;
+}
+
+/* 背景裝飾 */
+.testimonials::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, var(--accent-color), transparent);
+    border-radius: 50%;
+    opacity: 0.05;
+    transform: translateY(-50%);
+    pointer-events: none;
 }

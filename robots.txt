@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.eternalmemorial.tw/sitemap.xml
+
+# 禁止訪問的目錄
+Disallow: /css/
+Disallow: /js/
+Disallow: /img/placeholder.jpg.html
+
+# 允許訪問圖片
+Allow: /img/*.jpg
+Allow: /img/*.png
+Allow: /img/*.ico
