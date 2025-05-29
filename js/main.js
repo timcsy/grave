@@ -292,86 +292,7 @@ $(document).ready(function() {
         
     } else {
         console.warn('Slick carousel not loaded');
-    }// 表單提交處理
-    $('#contactForm').submit(function(e) {
-        e.preventDefault();
-        
-        // 表單驗證
-        const name = $('#name').val().trim();
-        const email = $('#email').val().trim();
-        const phone = $('#phone').val().trim();
-        const message = $('#message').val().trim();
-        const subject = $('#subject').val();
-        
-        // 狀態顯示函數
-        function showFormStatus(type, message) {
-            const $status = $('#form-status');
-            $status.removeClass('success error loading')
-                   .addClass(type)
-                   .html(message)
-                   .show();
-        }
-        
-        // 簡易驗證
-        if (!name || !email || !message || !subject) {
-            showFormStatus('error', '<i class="fas fa-exclamation-triangle"></i> 請填寫所有必填欄位');
-            return;
-        }
-        
-        // 電子郵件格式驗證
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            showFormStatus('error', '<i class="fas fa-exclamation-triangle"></i> 請輸入有效的電子郵件地址');
-            return;
-        }
-        
-        // 表單提交按鈕狀態
-        const $submitBtn = $(this).find('button[type="submit"]');
-        const originalText = $submitBtn.text();
-        $submitBtn.prop('disabled', true).text('提交中...');
-        
-        // 顯示載入狀態
-        showFormStatus('loading', '<i class="fas fa-spinner fa-spin"></i> 正在發送您的訊息...');
-        
-        // 使用Formspree服務發送表單
-        const formData = new FormData(this);
-        
-        // 注意：替換為您的Formspree表單ID
-        const formspreeUrl = 'https://formspree.io/f/YOUR_FORMSPREE_ID';
-        
-        fetch(formspreeUrl, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error('表單提交失敗');
-        })
-        .then(data => {
-            // 提交成功
-            showFormStatus('success', '<i class="fas fa-check-circle"></i> 感謝您的留言，我們將盡快回覆您');
-            this.reset();
-            
-            // 3秒後隱藏成功訊息
-            setTimeout(() => {
-                $('#form-status').fadeOut();
-            }, 3000);
-        })
-        .catch(error => {
-            // 提交失敗
-            console.error('提交表單時發生錯誤:', error);
-            showFormStatus('error', '<i class="fas fa-exclamation-circle"></i> 很抱歉，表單提交失敗。請稍後再試或直接電話聯繫我們：(02) 2636-1234');
-        })
-        .finally(() => {
-            // 恢復按鈕狀態
-            $submitBtn.prop('disabled', false).text(originalText);
-        });
-    });// 處理關於我們區域的圖片
+    }// 處理關於我們區域的圖片
     function setupGardenImage() {
         const $gardenImg = $('#garden-img');
         
@@ -399,7 +320,9 @@ $(document).ready(function() {
     }
     
     // 執行函數檢查圖片
-    setupGardenImage();// 設置英雄區的背景
+    setupGardenImage();
+
+    // 設置英雄區的背景
     function setupHeroBackground() {
         // 檢查 hero-bg.jpg 是否存在
         const heroImg = new Image();
