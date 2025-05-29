@@ -327,12 +327,8 @@ $(document).ready(function() {
         // 檢查 hero-bg.jpg 是否存在
         const heroImg = new Image();
         heroImg.onload = function() {
-            // 圖片存在，使用實際圖片作為背景
-            $('.hero').css({
-                'background': 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("../img/hero-bg.jpg")',
-                'background-size': 'cover',
-                'background-position': 'center'
-            });
+            // 圖片存在，但不需要重新設置，CSS 已經處理
+            console.log('英雄區背景圖片載入成功');
         };
         heroImg.onerror = function() {
             // 圖片不存在，使用純色背景
@@ -341,6 +337,7 @@ $(document).ready(function() {
                 'background-size': 'cover',
                 'background-position': 'center'
             });
+            console.log('英雄區背景圖片未找到，使用純色背景');
         };
         heroImg.src = 'img/hero-bg.jpg';
     }
