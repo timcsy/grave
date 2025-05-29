@@ -214,6 +214,44 @@ nav {
     font-size: 1.1rem;
 }
 
+/* 園區圖片佔位樣式 */
+.garden-placeholder {
+    transition: all 0.3s ease;
+    width: 100% !important; /* 確保在所有情況下都是全寬 */
+    max-width: none !important; /* 移除最大寬度限制 */
+}
+
+.garden-placeholder:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* 響應式調整園區圖片佔位 */
+@media (max-width: 768px) {
+    .about-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+    
+    .about-image {
+        order: 2;
+        width: 100%; /* 確保圖片容器全寬 */
+    }
+    
+    .about-text {
+        order: 1;
+    }
+    
+    /* 針對園區佔位圖的特殊調整 */
+    .garden-placeholder {
+        width: 100% !important;
+        min-height: 250px !important; /* 手機版調整高度 */
+        margin: 0 !important;
+        padding: 25px 15px !important; /* 調整內邊距 */
+    }
+}
+
 /* 服務項目區域樣式 */
 .services {
     background-color: var(--light-color);
@@ -502,32 +540,19 @@ nav {
     font-size: 1.1rem;
 }
 
-/* 家屬感言樣式 - 完全重新設計 */
+/* 家屬感言樣式 - 單一卡片8:5比例優化 */
 .testimonials {
     background-color: var(--light-color);
     position: relative;
-    /* 移除所有 overflow 限制 */
-    padding: 80px 0 120px; /* 增加底部空間給導航點 */
-    min-height: 600px; /* 確保有足夠的高度 */
-}
-
-.testimonials::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, transparent 0%, rgba(44, 62, 80, 0.03) 100%);
-    pointer-events: none;
+    padding: 80px 0 120px;
+    min-height: auto;
 }
 
 .testimonial-slider {
-    max-width: 900px;
+    max-width: 1000px; /* 增加容器寬度給卡片更多空間 */
     margin: 0 auto;
     position: relative;
-    /* 完全移除 overflow 設定 */
-    min-height: 400px; /* 確保基本高度 */
+    min-height: auto;
 }
 
 .testimonial {
@@ -535,11 +560,13 @@ nav {
     border-radius: 15px;
     padding: 0;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-    margin: 0 10px;
-    /* 移除 overflow: hidden，讓內容完整顯示 */
+    margin: 0 20px; /* 調整邊距 */
     transition: all 0.4s ease;
-    /* 設定最小高度確保內容不被截斷 */
-    min-height: 350px;
+    width: 640px; /* 固定寬度 8的倍數 */
+    height: 400px; /* 固定高度 5的倍數，8:5 = 640:400 */
+    max-width: 640px;
+    min-height: 400px;
+    max-height: 400px;
     display: flex;
     flex-direction: column;
 }
@@ -550,38 +577,41 @@ nav {
 }
 
 .testimonial-content {
-    padding: 40px;
+    padding: 40px 35px 35px;
     position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .quote-icon {
     position: absolute;
-    top: 20px;
-    right: 30px;
-    font-size: 2rem;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5rem; /* 縮小引號大小 */
     color: var(--accent-color);
-    opacity: 0.3;
+    opacity: 0.25; /* 調整透明度，讓引號適度可見 */
+    transform: rotate(8deg); /* 減少旋轉角度，讓它看起來更自然 */
+    z-index: 0; /* 確保在文字下方 */
 }
 
 .testimonial-text {
     font-size: 1.1rem;
     margin-bottom: 30px;
-    line-height: 1.8;
+    line-height: 1.7;
     color: var(--text-color);
     position: relative;
-    padding-top: 10px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding-right: 50px; /* 增加右側內邊距，避免文字碰到引號 */
 }
 
 .testimonial-text p {
     margin: 0;
     font-style: italic;
     position: relative;
-    z-index: 1;
-}
-
-.testimonial-author {
-    border-top: 1px solid #eee;
-    padding-top: 20px;
+    z-index: 2; /* 確保文字在引號上方 */
 }
 
 .author-info {
@@ -616,6 +646,71 @@ nav {
     color: var(--accent-color);
     margin: 0;
     font-style: italic;
+}
+
+/* 大螢幕專用優化 */
+@media (min-width: 1200px) {
+    .testimonial-slider {
+        max-width: 1200px; /* 超大螢幕進一步增加容器 */
+    }
+    
+    .testimonial {
+        width: 720px; /* 更大的8:5比例 */
+        height: 450px; /* 對應的高度 */
+        max-width: 720px;
+        min-height: 450px;
+        max-height: 450px;
+        margin: 0 30px; /* 更大的邊距 */
+    }
+}
+
+/* 中等螢幕調整 */
+@media (max-width: 1024px) {
+    .testimonial {
+        width: 560px; /* 較小的8:5比例 */
+        height: 350px;
+        max-width: 560px;
+        min-height: 350px;
+        max-height: 350px;
+        margin: 0 15px;
+    }
+}
+
+/* 平板響應式 */
+@media (max-width: 768px) {
+    .testimonial {
+        width: 480px; /* 平板版8:5比例 */
+        height: 300px;
+        max-width: 480px;
+        min-height: 300px;
+        max-height: 300px;
+        margin: 0 10px;
+    }
+}
+
+/* 手機響應式 */
+@media (max-width: 576px) {
+    .testimonial {
+        width: 320px; /* 手機版8:5比例 */
+        height: 200px;
+        max-width: 320px;
+        min-height: 200px;
+        max-height: 200px;
+        margin: 0 5px;
+    }
+    
+    .testimonial-content {
+        padding: 25px 20px 20px; /* 調整手機版內邊距 */
+    }
+    
+    .testimonial-text {
+        font-size: 0.95rem; /* 手機版縮小字體 */
+        line-height: 1.5;
+    }
+    
+    .author-avatar i {
+        font-size: 2rem; /* 手機版縮小頭像 */
+    }
 }
 
 /* 聯絡我們區域樣式 */

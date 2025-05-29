@@ -307,10 +307,62 @@ $(document).ready(function() {
             // 圖片不存在，創建佔位圖
             const $parent = $gardenImg.parent();
             $parent.html(`
-                <div style="background-color: #34495e; height: 300px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; border-radius: 10px;">
-                    <i class="fas fa-tree" style="font-size: 3rem; margin-bottom: 15px;"></i>
-                    <h3>紀念公園景觀</h3>
-                    <p>寧靜祥和的園區環境</p>
+                <div class="garden-placeholder" style="
+                    background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+                    height: 300px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    color: white;
+                    border-radius: 10px;
+                    text-align: center;
+                    padding: 30px 20px;
+                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                    position: relative;
+                    overflow: hidden;
+                    width: 100%;
+                    max-width: 100%;
+                    box-sizing: border-box;
+                ">
+                    <div style="
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1) 2px, transparent 2px),
+                                   radial-gradient(circle at 80% 40%, rgba(255,255,255,0.08) 1px, transparent 1px),
+                                   radial-gradient(circle at 40% 80%, rgba(255,255,255,0.12) 1.5px, transparent 1.5px);
+                        opacity: 0.3;
+                        pointer-events: none;
+                    "></div>
+                    <i class="fas fa-tree" style="
+                        font-size: clamp(2.5rem, 5vw, 3.5rem);
+                        margin-bottom: 20px;
+                        color: #7f8c8d;
+                        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+                        position: relative;
+                        z-index: 1;
+                    "></i>
+                    <div style="position: relative; z-index: 1; max-width: 100%; width: 100%;">
+                        <h3 style="
+                            font-size: clamp(1.2rem, 4vw, 1.5rem);
+                            margin-bottom: 10px;
+                            font-weight: 600;
+                            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+                            line-height: 1.4;
+                            word-wrap: break-word;
+                        ">紀念公園景觀</h3>
+                        <p style="
+                            font-size: clamp(0.9rem, 3vw, 1rem);
+                            margin: 0;
+                            opacity: 0.9;
+                            line-height: 1.5;
+                            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+                            word-wrap: break-word;
+                        ">寧靜祥和的園區環境</p>
+                    </div>
                 </div>
             `);
         };
