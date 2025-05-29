@@ -17,6 +17,7 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden; /* 防止整體水平滾動 */
 }
 
 body {
@@ -26,6 +27,7 @@ body {
     color: var(--text-color);
     background-color: var(--light-color);
     min-height: 100vh;
+    overflow-x: hidden; /* 防止整體水平滾動 */
 }
 
 .container {
@@ -33,12 +35,13 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-    overflow-x: hidden; /* 防止水平滾动 */
+    /* 移除 overflow-x: hidden，可能導致內容被截斷 */
 }
 
 section {
     padding: 80px 0;
-    overflow-x: hidden; /* 防止水平滾动 */
+    /* 移除 overflow-x: hidden，讓內容自然顯示 */
+    position: relative; /* 確保內容定位正確 */
 }
 
 .section-title {
@@ -137,31 +140,51 @@ nav {
 
 /* 英雄區域樣式 */
 .hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), #2c3e50;
+    background: url('../img/hero-bg.jpg');
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
     height: 100vh;
     display: flex;
     align-items: center;
     text-align: center;
     color: white;
     padding: 0;
+    position: relative;
+}
+
+/* 添加輕微的遮罩層以確保文字可讀性 */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    pointer-events: none;
 }
 
 .hero-content {
     max-width: 800px;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
 }
 
 .hero-content h2 {
     font-size: 3.5rem;
     margin-bottom: 20px;
     font-weight: 700;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .hero-content p {
     font-size: 1.5rem;
     margin-bottom: 30px;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
 /* 關於我們區域樣式 */
@@ -479,11 +502,13 @@ nav {
     font-size: 1.1rem;
 }
 
-/* 家屬感言樣式 */
+/* 家屬感言樣式 - 完全重新設計 */
 .testimonials {
     background-color: var(--light-color);
     position: relative;
-    overflow: hidden;
+    /* 移除所有 overflow 限制 */
+    padding: 80px 0 120px; /* 增加底部空間給導航點 */
+    min-height: 600px; /* 確保有足夠的高度 */
 }
 
 .testimonials::before {
@@ -501,6 +526,8 @@ nav {
     max-width: 900px;
     margin: 0 auto;
     position: relative;
+    /* 完全移除 overflow 設定 */
+    min-height: 400px; /* 確保基本高度 */
 }
 
 .testimonial {
@@ -508,12 +535,13 @@ nav {
     border-radius: 15px;
     padding: 0;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-    margin: 20px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-    opacity: 0.9;
-    transform: scale(0.98);
+    margin: 0 10px;
+    /* 移除 overflow: hidden，讓內容完整顯示 */
     transition: all 0.4s ease;
+    /* 設定最小高度確保內容不被截斷 */
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
 }
 
 .testimonial:hover {
@@ -1009,15 +1037,20 @@ footer {
     transform: translateY(0);
 }
 
-/* 自定義 slick slider 樣式 */
+/* 自定義 slick slider 樣式 - 導航點 */
 .testimonials .slick-dots {
-    bottom: -60px;
+    bottom: -60px !important; /* 增加距離 */
     display: flex !important;
     justify-content: center;
     gap: 10px;
     list-style: none;
     padding: 0;
     margin: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    z-index: 10; /* 確保在最上層 */
 }
 
 .testimonials .slick-dots li {
@@ -1035,6 +1068,7 @@ footer {
     font-size: 0;
     transition: all 0.3s ease;
     cursor: pointer;
+    text-indent: -9999px; /* 隱藏預設文字 */
 }
 
 .testimonials .slick-dots li button:hover {
@@ -1044,105 +1078,85 @@ footer {
 
 .testimonials .slick-dots li.slick-active button {
     background-color: var(--primary-color);
-    transform: scale(1.1);
 }
 
+/* 完全隱藏 prev/next 按鈕 */
 .testimonials .slick-prev,
 .testimonials .slick-next {
-    width: 50px;
-    height: 50px;
-    background-color: white;
-    border-radius: 50%;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    z-index: 1;
-    transition: all 0.3s ease;
+    display: none !important;
 }
 
-.testimonials .slick-prev:hover,
-.testimonials .slick-next:hover {
-    background-color: var(--primary-color);
-    transform: scale(1.1);
+/* 優化 Slick 輪播容器樣式 */
+.testimonials .slick-list {
+    overflow: visible !important; /* 強制讓內容可見 */
+    padding: 0 !important;
+    margin: 0 !important;
+    height: auto !important; /* 讓高度自適應 */
 }
 
-.testimonials .slick-prev:hover:before,
-.testimonials .slick-next:hover:before {
-    color: white;
+.testimonials .slick-track {
+    display: flex !important;
+    align-items: stretch !important; /* 確保所有卡片等高 */
+    height: auto !important;
+    margin: 0 !important;
 }
 
-.testimonials .slick-prev {
-    left: -70px;
+.testimonials .slick-slide {
+    height: auto !important;
+    float: none !important; /* 移除浮動 */
+    display: flex !important;
 }
 
-.testimonials .slick-next {
-    right: -70px;
+.testimonials .slick-slide > div {
+    width: 100%;
+    height: 100%;
+    display: flex !important;
+    flex-direction: column !important;
 }
 
-.testimonials .slick-prev:before,
-.testimonials .slick-next:before {
-    font-family: "Font Awesome 6 Free";
-    font-weight: 900;
-    font-size: 18px;
-    color: var(--primary-color);
-    opacity: 1;
+/* 修復可能的容器高度問題 */
+.about, .services, .memorials, .contact {
+    min-height: auto; /* 讓高度根據內容調整 */
+    /* 移除任何可能限制高度的設定 */
 }
 
-.testimonials .slick-prev:before {
-    content: '\f104'; /* fa-angle-left */
+/* 確保所有卡片和容器都有適當的最小高度 */
+.service-card, .memorial-item {
+    min-height: auto; /* 讓高度自適應內容 */
 }
 
-.testimonials .slick-next:before {
-    content: '\f105'; /* fa-angle-right */
-}
-
-/* 家屬感言動畫效果 */
-.testimonial.animate-in {
-    opacity: 1;
-    transform: scale(1);
-}
-
-.slick-current .testimonial {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* 輪播容器動畫 */
-.testimonial-slider .slick-track {
-    display: flex;
-    align-items: center;
-}
-
-.testimonial-slider .slick-slide {
-    height: inherit;
-    padding: 0 10px;
-}
-
-/* 載入動畫 */
-@keyframes testimonialFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
+/* 修復響應式設計中的截斷問題 */
+@media (max-width: 768px) {
+    section {
+        padding: 60px 0; /* 確保有足夠的內邊距 */
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    
+    .testimonials {
+        padding: 60px 0 100px; /* 調整手機版的內邊距 */
+        min-height: 500px; /* 調整最小高度 */
+    }
+    
+    .testimonial {
+        min-height: 300px; /* 手機版最小高度 */
+        margin: 0 5px; /* 調整邊距 */
+    }
+    
+    .testimonials .slick-dots {
+        bottom: -50px !important; /* 手機版調整導航點位置 */
     }
 }
 
-.testimonials.fade-in.active .testimonial-slider {
-    animation: testimonialFadeIn 0.8s ease-out;
-}
-
-/* 背景裝飾 */
-.testimonials::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 10%;
-    width: 100px;
-    height: 100px;
-    background: linear-gradient(135deg, var(--accent-color), transparent);
-    border-radius: 50%;
-    opacity: 0.05;
-    transform: translateY(-50%);
-    pointer-events: none;
+@media (max-width: 576px) {
+    section {
+        padding: 50px 0; /* 小螢幕確保足夠內邊距 */
+    }
+    
+    .testimonials {
+        padding: 50px 0 80px; /* 小螢幕調整內邊距 */
+        min-height: 450px;
+    }
+    
+    .testimonial {
+        min-height: 280px; /* 小螢幕最小高度 */
+    }
 }

@@ -200,7 +200,7 @@ $(document).ready(function() {
         $('.nav-links').toggleClass('active');
     });
 
-    // 平滑滾動
+    // 平滑滾动
     $('a[href^="#"]').on('click', function(e) {
         e.preventDefault();
         
@@ -321,26 +321,4 @@ $(document).ready(function() {
     
     // 執行函數檢查圖片
     setupGardenImage();
-
-    // 設置英雄區的背景
-    function setupHeroBackground() {
-        // 檢查 hero-bg.jpg 是否存在
-        const heroImg = new Image();
-        heroImg.onload = function() {
-            // 圖片存在，設置為背景圖片
-            $('.hero').css({
-                'background': 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("img/hero-bg.jpg")',
-                'background-size': 'cover',
-                'background-position': 'center'
-            });
-            console.log('英雄區背景圖片載入成功');
-        };
-        heroImg.onerror = function() {
-            // 圖片不存在，保持純色背景
-            console.log('英雄區背景圖片未找到，使用純色背景');
-        };
-        heroImg.src = 'img/hero-bg.jpg';
-    }
-    
-    setupHeroBackground();
 });
